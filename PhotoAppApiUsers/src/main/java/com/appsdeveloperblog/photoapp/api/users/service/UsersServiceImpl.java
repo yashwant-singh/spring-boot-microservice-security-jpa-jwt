@@ -33,7 +33,6 @@ public class UsersServiceImpl implements UsersService {
 		userDetails.setEncryptedPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));
 		ModelMapper modelMapper = new ModelMapper();
 		UserEntity userEntity = modelMapper.map(userDetails, UserEntity.class);
-		userEntity.setEncryptedPassword("test");
 		usersRepository.save(userEntity);
 		UserDto returnValue = modelMapper.map(userEntity, UserDto.class);
 		return returnValue;
