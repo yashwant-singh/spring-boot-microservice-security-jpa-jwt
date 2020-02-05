@@ -29,16 +29,20 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-//		http.authorizeRequests().antMatchers("/users/**").permitAll();
-		http.authorizeRequests().antMatchers("/**").hasIpAddress(environment.getProperty("gateway.ip")).and()
-				.addFilter(getAuthenticationFilter());
+		if (new Boolean(environment.getProperty("stop.authorization"))) {
+			http.authorizeRequests().antMatchers("/users/**").permitAll();
+		} else {
+			http.authorizeRequests().antMatchers("/**").hasIpAddress(environment.getProperty("gateway.ip")).and()
+					.addFilter(getAuthenticationFilter());
+		}
 		http.headers().frameOptions().disable();
 	}
 
 	private AuthenticationFilter getAuthenticationFilter() throws Exception {
 		AuthenticationFilter authenticationFilter = new AuthenticationFilter(usersService, environment,
 				authenticationManager());
-//		authenticationFilter.setAuthenticationManager(authenticationManager());
+//		AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+		authenticationFilter.setAuthenticationManager(authenticationManager());
 		authenticationFilter.setFilterProcessesUrl("login.url.path");
 		return authenticationFilter;
 	}
