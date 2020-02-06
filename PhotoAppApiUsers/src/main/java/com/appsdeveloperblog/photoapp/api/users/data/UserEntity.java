@@ -12,14 +12,11 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class UserEntity implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2731425678149216053L;
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	private long id;
 
 	@Column(nullable = false, length = 50)
 	private String firstName;
@@ -38,13 +35,13 @@ public class UserEntity implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String encryptedPassword;
 
-//	public Long getId() {
-//		return id;
-//	}
-//
-//	public void setId(Long id) {
-//		this.id = id;
-//	}
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getFirstName() {
 		return firstName;
