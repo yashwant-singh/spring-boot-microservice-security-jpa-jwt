@@ -3,6 +3,7 @@ package com.appsdeveloperblog.photoapp.api.users.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,8 +33,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		if (new Boolean(environment.getProperty("stop.authorization"))) {
 			http.authorizeRequests().antMatchers("/users/**").permitAll();
 		} else {
-			http.authorizeRequests().antMatchers("/**").hasIpAddress(environment.getProperty("gateway.ip")).and()
+			http.authorizeRequests()
+			.antMatchers(environment.getProperty("api.h2console.url.path")+"/**").permitAll()
+			.antMatchers(HttpMethod.POST, environment.getProperty("api.registration.url.path")).permitAll()
+			.antMatchers(HttpMethod.POST, environment.getProperty("api.login.url.path")).permitAll()
+			.antMatchers("/**").hasIpAddress(environment.getProperty("gateway.ip")).and()
 					.addFilter(getAuthenticationFilter());
+			
+			
 		}
 		http.headers().frameOptions().disable();
 	}
@@ -43,7 +50,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				authenticationManager());
 //		AuthenticationFilter authenticationFilter = new AuthenticationFilter();
 		authenticationFilter.setAuthenticationManager(authenticationManager());
-		authenticationFilter.setFilterProcessesUrl("login.url.path");
+//		authenticationFilter.setFilterProcessesUrl("login.url.path");
 		return authenticationFilter;
 	}
 
