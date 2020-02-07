@@ -31,13 +31,14 @@ public class UserController {
 
 	@RequestMapping("/status/check")
 	public String status() {
-		return "working on port " + env.getProperty("local.server.port");
+		return "working on port " + env.getProperty("local.server.port") + ", with token = "+ env.getProperty("token.secret");
 	}
 
 	@PostMapping(consumes = { MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces = {
 			MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<CreateUserResponseModel> createUser(@Valid @RequestBody CreateUserRequestModel userDetails) {
 
+		System.out.println("Signing Token :"+ env.getProperty("token.secret"));
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		UserDto userDto = modelMapper.map(userDetails, UserDto.class);
