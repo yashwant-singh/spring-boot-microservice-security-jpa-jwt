@@ -34,13 +34,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			http.authorizeRequests().antMatchers("/users/**").permitAll();
 		} else {
 			http.authorizeRequests()
-			.antMatchers(environment.getProperty("api.h2console.url.path")+"/**").permitAll()
-			.antMatchers(HttpMethod.POST, environment.getProperty("api.registration.url.path")).permitAll()
-			.antMatchers(HttpMethod.POST, environment.getProperty("api.login.url.path")).permitAll()
-			.antMatchers("/**").hasIpAddress(environment.getProperty("gateway.ip")).and()
-					.addFilter(getAuthenticationFilter());
-			
-			
+			.antMatchers("/**").hasIpAddress(environment.getProperty("gateway.ip"))
+			.and()
+			.addFilter(getAuthenticationFilter());
 		}
 		http.headers().frameOptions().disable();
 	}
