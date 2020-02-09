@@ -88,12 +88,7 @@ public class UsersServiceImpl implements UsersService {
 //				});
 //		List<AlbumResponseModel> albumsList = albumsListResponse.getBody();
 
-		List<AlbumResponseModel> albumsList = null;
-		try {
-			albumsList = albumServiceClient.getAlbums(userId);
-		} catch (FeignException e) {
-			logger.error(e.getMessage());
-		}
+		List<AlbumResponseModel> albumsList = albumServiceClient.getAlbums(userId);
 
 		userDto.setAlbums(albumsList);
 		return userDto;
