@@ -6,17 +6,17 @@ import javax.validation.constraints.Size;
 
 public class CreateUserRequestModel {
 
-	@NotNull(message="First name is required")
-	@Size(min=2, message="First Name must not be less then two character")
+	@NotNull(message = "First name is required")
+	@Size(min = 2, message = "First Name must not be less then two character")
 	private String firstName;
-	@NotNull(message="First name is required")
-	@Size(min=2, message="First Name must not be less then two character")
+	@NotNull(message = "First name is required")
+	@Size(min = 2, message = "First Name must not be less then two character")
 	private String lastName;
-	@NotNull(message="Email cannot be null")
+	@NotNull(message = "Email cannot be null")
 	@Email
 	private String email;
-	@NotNull(message="Passowrd cannot be null")
-	@Size(min=8, max=16, message="Password must be equal and grater then 8 characters and less then 16 characters")
+	@NotNull(message = "Passowrd cannot be null")
+	@Size(min = 8, max = 16, message = "Password must be equal and grater then 8 characters and less then 16 characters")
 	private String password;
 
 	public String getFirstName() {
