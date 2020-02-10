@@ -1,1 +1,3 @@
 PhotoAppApiAlbums/albums-ws.log
+*.log
+*.log.*.gz
