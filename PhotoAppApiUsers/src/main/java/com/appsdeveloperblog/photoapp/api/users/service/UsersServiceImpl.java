@@ -22,8 +22,6 @@ import com.appsdeveloperblog.photoapp.api.users.data.UsersRepository;
 import com.appsdeveloperblog.photoapp.api.users.shared.UserDto;
 import com.appsdeveloperblog.photoapp.api.users.ui.model.AlbumResponseModel;
 
-import feign.FeignException;
-
 @Service
 public class UsersServiceImpl implements UsersService {
 
@@ -32,7 +30,7 @@ public class UsersServiceImpl implements UsersService {
 	private AlbumsServiceClient albumServiceClient;
 	private Environment environment;
 
-	private Logger logger = LoggerFactory.getLogger(UsersServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	public UsersServiceImpl(UsersRepository usersRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
